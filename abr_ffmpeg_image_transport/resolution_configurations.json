@@ -1,0 +1,9 @@
+{
+    "VGA": {"width": 640, "height": 480},
+    "SVGA": {"width": 800, "height": 600},
+    "525SD": {"width": 720, "height": 480},
+    "HD": {"width": 1280, "height": 720},
+    "FHD": {"width": 1920, "height": 1080},
+    "4K": {"width": 3840, "height": 2160},
+    "8K": {"width": 7680, "height": 4320}
+}

@@ -1,0 +1,13 @@
+<library path="abr_ffmpeg_image_transport_component">
+  <class name="image_transport/abr_ffmpeg_pub" type="abr_ffmpeg_image_transport::FFMPEGPublisher" base_class_type="image_transport::PublisherPlugin">
+    <description>
+      This plugin encodes frames into ffmpeg compressed packets
+    </description>
+  </class>
+  <class name="image_transport/abr_ffmpeg_sub" type="abr_ffmpeg_image_transport::FFMPEGSubscriber" base_class_type="image_transport::SubscriberPlugin">
+    <description>
+      This plugin decodes frames from ffmpeg compressed packets
+    </description>
+  </class>
+</library>
+		  
