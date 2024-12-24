@@ -2,38 +2,64 @@
 
 ## Introduction
 
-This project addresses the challenges of video transmission in ROS 2 by implementing an Adaptive Bit Rate (ABR) system. The goal is to enhance video streaming performance, ensuring optimal quality and stability in real-time scenarios, even under challenging network conditions.
+An  **Adaptive Bitrate (ABR) system** dynamically adjusts the bitrate and resolution of video streams in real-time based on network conditions. By monitoring the transmition, it selects the most suitable bitrate from a predefined **"bitrate ladder"** to ensure smooth and reliable transmission. This approach guarantees optimal video quality tailored to the current network environment.
 
-This work is part of my Bachelor's Final Project and serves as a foundation for further improvements. Future updates will include additional features such as extended codec support and refined QoS mechanisms, as well as potential adaptations for other use cases within ROS 2 and real-time video applications.
+This project addresses the challenges of video transmission in ROS 2 by implementing an ABR system for the image_transport package (ROS 2 Humble). The goal is to enhance video streaming performance, ensuring optimal quality and stability in real-time scenarios, even under challenging network conditions (Ex: radiofrequency). This makes it ideal for teleoperated robots.
 
-Documentation (Thesis) [ESP]: (link pending of publication)
 
-### ABR Algorithm
+This work is part of my Bachelor's Final Project. Future updates will include additional features such as extended codec support and refined ABR mechanisms, as well as potential adaptations for other use cases within ROS 2 and real-time video applications. This repository keeps the initial code for the thesis proposal. For ongoing development and maintenance, please refer to the [ABR_image_transport](https://github.com/agutig/ABR_image_transport_tfg) repository.
 
-The ABR (Adaptive Bit Rate) system dynamically adjusts the bitrate and resolution of video streams based on network conditions. It monitors the available bandwidth and latency, selecting an appropriate bitrate from a pre-defined "bitrate ladder" to ensure smooth transmission. The system uses the harmonic mean of throughput measurements as a predictor for available network capacity, providing a robust mechanism to adapt video quality. When network conditions are stable, the system increases quality; during instability, it reduces the bitrate to avoid buffering or packet loss. This ensures real-time performance and optimal quality tailored to the current network environment.
+Documentation (Thesis v1) [ESP]: (link pending of publication)
 
-### ABR Logic
 
-The Adaptive Bitrate (ABR) algorithm implemented in this project is based on throughput estimation. It uses the harmonic mean as a predictor to dynamically select the most suitable bitrate from a predefined bitrate ladder. This approach ensures smooth video streaming by adapting to varying network conditions while minimizing buffering and packet loss.
+#### Key Features
 
-### Encoder Fork
+- **Image transport Plugin**:  
+  This plugin facilitates the efficient transmission of images and videos over ROS 2 topics. It leverages adaptive bitrate techniques to ensure optimal performance in real-time streaming scenarios, dynamically adjusting to varying network conditions. It is implemented as an **Image Transport Plugin** to maintain compatibility and adhere to the ROS 2 standard, allowing seamless integration with existing ROS 2 tools and workflows.
+
+- **Dynamic Adaptation**:  
+  Starts streaming at the lowest quality (lowest bitrate) and progressively increases the quality as network stability improves. During instability, it reduces the bitrate to avoid framerate penalties, maintaining real-time performance.
+
+- **Throughput Estimation**:  
+  Utilizes the harmonic mean of throughput measurements to predict available network capacity, ensuring robust quality adaptation.
+
+- **H.264 Codec Integration**:  
+  Delivers efficient video encoding and decoding for high-quality compression and playback.
+
+- **High Framerate Support**: 
+  Supports framerates up to 120 fps, enabling smooth streaming for high-performance applications.
+
+- **Full Configurability**:  
+  Supports fine-tuning of parameters through a customizable JSON configuration file (`config.json`).
+
+- **Configurable Bitrate Ladder**: 
+  The predefined bitrate ladder can be customized via a configuration file (`bitrate_ladder.json`).
+
+- **ROS 2 Humble Compatibility**:  
+  Designed for seamless integration with ROS 2 systems.
+
+- **Non-Reliable Transmission Optimization**:  
+  The system has been specifically optimized to operate in a **non-reliable** mode, which reduces latency and ensures real-time responsiveness. By prioritizing data flow over guaranteed delivery, this mode is particularly suited for scenarios where timely data transmission is critical, such as live video streaming and robotic control applications.
+
+- **Bidirectional Communication**:  
+  The system supports bidirectional communication through two interlinked plugins, enabling dynamic feedback between the publisher and subscriber. This ensures synchronized transmission adjustments and real-time responsiveness, particularly useful for interactive robotic and video streaming applications.
+
+
+### Base Fork
 
 This project leverages a fork of the repository [h264_image_transport](https://github.com/clydemcqueen/h264_image_transport) for the encoder component. Go check it if you are interested in a non-ABR solution for FFMPEG codecs!
 
+
 ### Video Comparison
+A comparison with Theora is available in this video: [Comparison with Theora](https://www.youtube.com/watch?v=8eLEeWR9lw8). (Big bunny bucket FHD@30fps)
 
-A comparison with Theora is available in this video: [Comparison with Theora](https://www.youtube.com/watch?v=8eLEeWR9lw8&t=22s). (Big bunny bucket FHD@30fps)
+[![Watch the video](https://www.youtube.com/watch?v=8eLEeWR9lw8)](https://www.youtube.com/watch?v=8eLEeWR9lw8)
 
-### Features
 
-- **Adaptive Image Transport Plugin**: Dynamically adjusts bitrate and resolution based on network conditions.
-- **H264 Encoding and Decoding**: Efficient codec integration.
-- **Fully Configurable**: Allows fine-tuning through JSON parameters (config.json).
-- **ROS 2 Humble Compatible**: Designed for seamless integration.
 
 ## Usage Guide
 
-## Installation
+### Installation
 
 1. Have preinstalled Image_transport:
 
@@ -64,7 +90,7 @@ A comparison with Theora is available in this video: [Comparison with Theora](ht
    source install/setup.bash
    ```
 
-## Configuration
+### Configuration (config.json)
 
 The system supports customization through a JSON configuration file. Below are the key parameters and their explanations:
 
@@ -78,13 +104,13 @@ The system supports customization through a JSON configuration file. Below are t
 - **abr_stability_threshold**: Threshold value to determine when network conditions are stable.
 - **abr_similarity_threshold**: Similarity threshold to compare current and previous throughput measurements.
 - **abr_emergency_latency_threshold**: Emergency threshold for maximum allowed latency (in seconds).
-- **predictor**: The throughput predictor used. Default is "hm" (harmonic mean).
+- **predictor**: The throughput predictor used. Default is "hm" (harmonic mean) but "mean", "median" can be selected.
 - **ripple_order**: Ripple effect order used for fine-tuning bitrate transitions.
 - **csv**: Boolean to enable or disable CSV logging for debugging purposes.
 - **republish_data**: Boolean to indicate whether data should be republished.
 - **max_rate_mbps**: Maximum bitrate allowed (in Mbps).
 
-### Example configuration
+#### Example configuration
 
 ```json
 {
@@ -109,17 +135,18 @@ The system supports customization through a JSON configuration file. Below are t
 ## Future Work
 
 - Optimize for specific robotic use cases.
-- Add advanced QoS mechanisms and debugging tools (ML).
+- Add advanced QoS mechanisms and debugging tools (ML/DL).
 - Translate the project documentation (Bachelor's degree Thesis) into English.
 - Extend support to additional video codecs.
 
-In general terms, i will keep working on ABR for robotics.
+This future work on ABR for robotics will be developed in the repository: [ABR_image_transport](https://github.com/agutig/ABR_image_transport_tfg).
 
 ## Author
 
 **Álvaro Gutiérrez García**  
+Contact: [Linkedin](https://www.linkedin.com/in/alvaro-gutierrez-garcia-/)
+
 Bachelor's Final Project - Universidad Rey Juan Carlos (EIF)
-Contact: https://www.linkedin.com/in/alvaro-gutierrez-garcia-/
 
 
 
