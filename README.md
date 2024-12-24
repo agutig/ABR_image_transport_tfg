@@ -53,7 +53,7 @@ This project leverages a fork of the repository [h264_image_transport](https://g
 ### Video Comparison
 A comparison with Theora is available in this video: [Comparison with Theora](https://www.youtube.com/watch?v=8eLEeWR9lw8). (Big bunny bucket FHD@30fps)
 
-[![Watch the video](https://www.youtube.com/watch?v=8eLEeWR9lw8)](https://www.youtube.com/watch?v=8eLEeWR9lw8)
+[![Watch the video](https://img.youtube.com/vi/8eLEeWR9lw8/0.jpg)](https://www.youtube.com/watch?v=8eLEeWR9lw8)
 
 
 
