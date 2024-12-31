@@ -9,7 +9,7 @@ This project addresses the challenges of video transmission in ROS 2 by implemen
 
 This work is part of my Bachelor's Final Project. Future updates will include additional features such as extended codec support and refined ABR mechanisms, as well as potential adaptations for other use cases within ROS 2 and real-time video applications. This repository keeps the initial code for the thesis proposal. For ongoing development and maintenance, please refer to the [ABR_image_transport](https://github.com/agutig/ABR_image_transport_tfg) repository.
 
-Documentation (Thesis v1) [ESP]: (link pending of publication)
+Documentation (Thesis v1) [ESP]: [link](https://github.com/agutig/media_repository/blob/main/pictures/2024-25-EIF-N-2039-2039038-a.gutierrezga.2018-MEMORIA.pdf) (official link pending of publication)
 
 
 #### Key Features
