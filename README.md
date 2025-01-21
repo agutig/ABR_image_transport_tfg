@@ -47,7 +47,7 @@ Documentation (Thesis v1) [ESP]: [link](https://github.com/agutig/media_reposito
 
 ### Base Fork
 
-This project leverages a fork of the repository [h264_image_transport](https://github.com/clydemcqueen/h264_image_transport) for the encoder component. Go check it if you are interested in a non-ABR solution for FFMPEG codecs!
+This project leverages a fork of the repository [ffmpeg_image_transport](https://github.com/ros-misc-utilities/ffmpeg_image_transport) for the encoder component. Go check it if you are interested in a non-ABR solution for FFMPEG codecs!
 
 
 ### Video Comparison
